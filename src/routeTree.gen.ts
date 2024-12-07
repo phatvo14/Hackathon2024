@@ -15,6 +15,7 @@ import { Route as SignUpImport } from './routes/sign-up'
 import { Route as SignInImport } from './routes/sign-in'
 import { Route as IndexImport } from './routes/index'
 import { Route as MentorsIndexImport } from './routes/mentors/index'
+import { Route as ChatIndexImport } from './routes/chat/index'
 import { Route as MentorsIdImport } from './routes/mentors/$id'
 
 // Create/Update Routes
@@ -40,6 +41,12 @@ const IndexRoute = IndexImport.update({
 const MentorsIndexRoute = MentorsIndexImport.update({
   id: '/mentors/',
   path: '/mentors/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ChatIndexRoute = ChatIndexImport.update({
+  id: '/chat/',
+  path: '/chat/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -81,6 +88,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MentorsIdImport
       parentRoute: typeof rootRoute
     }
+    '/chat/': {
+      id: '/chat/'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/mentors/': {
       id: '/mentors/'
       path: '/mentors'
@@ -98,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
   '/mentors/$id': typeof MentorsIdRoute
+  '/chat': typeof ChatIndexRoute
   '/mentors': typeof MentorsIndexRoute
 }
 
@@ -106,6 +121,7 @@ export interface FileRoutesByTo {
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
   '/mentors/$id': typeof MentorsIdRoute
+  '/chat': typeof ChatIndexRoute
   '/mentors': typeof MentorsIndexRoute
 }
 
@@ -115,15 +131,29 @@ export interface FileRoutesById {
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
   '/mentors/$id': typeof MentorsIdRoute
+  '/chat/': typeof ChatIndexRoute
   '/mentors/': typeof MentorsIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sign-in' | '/sign-up' | '/mentors/$id' | '/mentors'
+  fullPaths:
+    | '/'
+    | '/sign-in'
+    | '/sign-up'
+    | '/mentors/$id'
+    | '/chat'
+    | '/mentors'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sign-in' | '/sign-up' | '/mentors/$id' | '/mentors'
-  id: '__root__' | '/' | '/sign-in' | '/sign-up' | '/mentors/$id' | '/mentors/'
+  to: '/' | '/sign-in' | '/sign-up' | '/mentors/$id' | '/chat' | '/mentors'
+  id:
+    | '__root__'
+    | '/'
+    | '/sign-in'
+    | '/sign-up'
+    | '/mentors/$id'
+    | '/chat/'
+    | '/mentors/'
   fileRoutesById: FileRoutesById
 }
 
@@ -132,6 +162,7 @@ export interface RootRouteChildren {
   SignInRoute: typeof SignInRoute
   SignUpRoute: typeof SignUpRoute
   MentorsIdRoute: typeof MentorsIdRoute
+  ChatIndexRoute: typeof ChatIndexRoute
   MentorsIndexRoute: typeof MentorsIndexRoute
 }
 
@@ -140,6 +171,7 @@ const rootRouteChildren: RootRouteChildren = {
   SignInRoute: SignInRoute,
   SignUpRoute: SignUpRoute,
   MentorsIdRoute: MentorsIdRoute,
+  ChatIndexRoute: ChatIndexRoute,
   MentorsIndexRoute: MentorsIndexRoute,
 }
 
@@ -157,6 +189,7 @@ export const routeTree = rootRoute
         "/sign-in",
         "/sign-up",
         "/mentors/$id",
+        "/chat/",
         "/mentors/"
       ]
     },
@@ -171,6 +204,9 @@ export const routeTree = rootRoute
     },
     "/mentors/$id": {
       "filePath": "mentors/$id.tsx"
+    },
+    "/chat/": {
+      "filePath": "chat/index.tsx"
     },
     "/mentors/": {
       "filePath": "mentors/index.tsx"

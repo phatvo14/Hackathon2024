@@ -1,0 +1,137 @@
+[
+    {
+        "MentorID":"M01",
+        "fullName":"Khoa Nguyễn",
+        "skills":[
+            "Python",
+            "Leadership",
+            "Time Management",
+            "Data Analysis"
+        ],
+        "Experience":10,
+        "Department":"IT",
+        "MentoringCapacity":1,
+        "PreferredSkills":[
+            "Project Management",
+            "Java",
+            "Time Management",
+            "Data Analysis"
+        ],
+        "Availability":"Flexible",
+        "Email":"nguyễn.khoa@cyberlogitec.com"
+    },
+    {
+        "MentorID":"M02",
+        "fullName":"Đạt Trần",
+        "skills":[
+            "Java",
+            "Teamwork",
+            "Project Management"
+        ],
+        "Experience":10,
+        "Department":"IT",
+        "MentoringCapacity":3,
+        "PreferredSkills":[
+            "Time Management",
+            "UI\/UX Design"
+        ],
+        "Availability":"Specific hours",
+        "Email":"trần.đạt@cyberlogitec.com"
+    },
+    {
+        "MentorID":"M03",
+        "fullName":"Thi Huỳnh",
+        "skills":[
+            "Creative Thinking",
+            "Marketing",
+            "Public Speaking",
+            "Teamwork"
+        ],
+        "Experience":13,
+        "Department":"Operations",
+        "MentoringCapacity":2,
+        "PreferredSkills":[
+            "Marketing",
+            "Project Management",
+            "Python"
+        ],
+        "Availability":"Specific hours",
+        "Email":"huỳnh.thi@cyberlogitec.com"
+    },
+    {
+        "MentorID":"M04",
+        "fullName":"My Nguyễn",
+        "skills":[
+            "Project Management",
+            "Public Speaking",
+            "Teamwork",
+            "Creative Thinking"
+        ],
+        "Experience":23,
+        "Department":"Operations",
+        "MentoringCapacity":2,
+        "PreferredSkills":[
+            "Creative Thinking",
+            "Data Analysis",
+            "Marketing",
+            "Project Management"
+        ],
+        "Availability":"Specific hours",
+        "Email":"nguyễn.my@cyberlogitec.com"
+    },
+    {
+        "MentorID":"M05",
+        "fullName":"Phú Nguyễn",
+        "skills":[
+            "UI\/UX Design",
+            "Time Management"
+        ],
+        "Experience":11,
+        "Department":"Finance",
+        "MentoringCapacity":2,
+        "PreferredSkills":[
+            "UI\/UX Design",
+            "Teamwork"
+        ],
+        "Availability":"Specific hours",
+        "Email":"nguyễn.phú@cyberlogitec.com"
+    },
+    {
+        "MentorID":"M06",
+        "fullName":"Châu Trần",
+        "skills":[
+            "Creative Thinking",
+            "Marketing",
+            "Public Speaking",
+            "Teamwork"
+        ],
+        "Experience":17,
+        "Department":"Marketing",
+        "MentoringCapacity":2,
+        "PreferredSkills":[
+            "Leadership",
+            "Teamwork"
+        ],
+        "Availability":"Specific hours",
+        "Email":"trần.châu@cyberlogitec.com"
+    },
+    {
+        "MentorID":"M07",
+        "fullName":"Phát Võ",
+        "skills":[
+            "Java",
+            "Teamwork",
+            "Project Management"
+        ],
+        "Experience":14,
+        "Department":"IT",
+        "MentoringCapacity":2,
+        "PreferredSkills":[
+            "Java",
+            "Project Management",
+            "Teamwork"
+        ],
+        "Availability":"Specific hours",
+        "Email":"võ.phát@cyberlogitec.com"
+    }
+]

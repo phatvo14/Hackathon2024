@@ -15,7 +15,7 @@ export const SignInPage = () => {
         <SignInForm />
         <h2 className="text-center mt-4 text-sm">
           Don't have an account?{" "}
-          <Link href="/sign-up" className="underline font-semibold">
+          <Link to="/sign-up" className="underline font-semibold">
             Sign up
           </Link>
         </h2>
