@@ -1,1 +1,1 @@
-export * from'./customs/useGetPathName';
+export * from "./customs/useGetPathName";

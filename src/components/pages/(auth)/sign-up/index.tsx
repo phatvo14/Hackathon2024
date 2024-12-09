@@ -1,0 +1,26 @@
+import { SignUpForm } from "@/components/pages/(auth)/sign-up/SignUpForm";
+import { Separator } from "@/components/ui/separator";
+import { Link } from "@tanstack/react-router";
+
+export const SignUpPage = () => {
+  return (
+    <div className="bg-[#e4dbd3] w-full h-full p-6 flex items-center">
+      <div className="flex flex-col items-center w-[30rem] mx-auto py-6 px-8 bg-white shadow-lg rounded-lg">
+        <h1 className="uppercase font-bold text-xl mb-2">
+          Sign up your account
+        </h1>
+        <h2 className="text-sm text-zinc-500 text-center">
+          Join the Tinter Community — Where Mentorship Meets Opportunity!
+        </h2>
+        <Separator className="my-4 bg-zinc-500 w-1/2" />
+        <SignUpForm />
+        <h2 className="text-center mt-4 text-sm">
+          Already have an account?{" "}
+          <Link to="/login" className="underline font-semibold">
+            Log in
+          </Link>
+        </h2>
+      </div>
+    </div>
+  );
+};

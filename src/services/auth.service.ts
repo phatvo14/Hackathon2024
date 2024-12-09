@@ -1,10 +1,14 @@
 import { TSignInForm } from "@/components/pages/(auth)/sign-in/SignInForm";
+import { TSignUpForm } from "@/components/pages/(auth)/sign-up/SignUpForm";
 import api from "@/configs/axios";
 
 class AuthService {
-  signIn = (form: TSignInForm) => {
-      return api.post('auth/login', form);
-  }
+  signIn = async (form: TSignInForm) => {
+    return await api.post("auth/login", form);
+  };
+  signUp = async (form: TSignUpForm) => {
+    return await api.post("auth/register", form);
+  };
 }
 
 export const authService = new AuthService();

@@ -12,7 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as SignUpImport } from './routes/sign-up'
-import { Route as SignInImport } from './routes/sign-in'
+import { Route as LoginImport } from './routes/login'
 import { Route as IndexImport } from './routes/index'
 import { Route as MentorsIndexImport } from './routes/mentors/index'
 import { Route as ChatIndexImport } from './routes/chat/index'
@@ -26,9 +26,9 @@ const SignUpRoute = SignUpImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const SignInRoute = SignInImport.update({
-  id: '/sign-in',
-  path: '/sign-in',
+const LoginRoute = LoginImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -67,11 +67,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/sign-in': {
-      id: '/sign-in'
-      path: '/sign-in'
-      fullPath: '/sign-in'
-      preLoaderRoute: typeof SignInImport
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
     '/sign-up': {
@@ -109,7 +109,7 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/sign-in': typeof SignInRoute
+  '/login': typeof LoginRoute
   '/sign-up': typeof SignUpRoute
   '/mentors/$id': typeof MentorsIdRoute
   '/chat': typeof ChatIndexRoute
@@ -118,7 +118,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/sign-in': typeof SignInRoute
+  '/login': typeof LoginRoute
   '/sign-up': typeof SignUpRoute
   '/mentors/$id': typeof MentorsIdRoute
   '/chat': typeof ChatIndexRoute
@@ -128,7 +128,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/sign-in': typeof SignInRoute
+  '/login': typeof LoginRoute
   '/sign-up': typeof SignUpRoute
   '/mentors/$id': typeof MentorsIdRoute
   '/chat/': typeof ChatIndexRoute
@@ -137,19 +137,13 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/sign-in'
-    | '/sign-up'
-    | '/mentors/$id'
-    | '/chat'
-    | '/mentors'
+  fullPaths: '/' | '/login' | '/sign-up' | '/mentors/$id' | '/chat' | '/mentors'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sign-in' | '/sign-up' | '/mentors/$id' | '/chat' | '/mentors'
+  to: '/' | '/login' | '/sign-up' | '/mentors/$id' | '/chat' | '/mentors'
   id:
     | '__root__'
     | '/'
-    | '/sign-in'
+    | '/login'
     | '/sign-up'
     | '/mentors/$id'
     | '/chat/'
@@ -159,7 +153,7 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  SignInRoute: typeof SignInRoute
+  LoginRoute: typeof LoginRoute
   SignUpRoute: typeof SignUpRoute
   MentorsIdRoute: typeof MentorsIdRoute
   ChatIndexRoute: typeof ChatIndexRoute
@@ -168,7 +162,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  SignInRoute: SignInRoute,
+  LoginRoute: LoginRoute,
   SignUpRoute: SignUpRoute,
   MentorsIdRoute: MentorsIdRoute,
   ChatIndexRoute: ChatIndexRoute,
@@ -186,7 +180,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/sign-in",
+        "/login",
         "/sign-up",
         "/mentors/$id",
         "/chat/",
@@ -196,8 +190,8 @@ export const routeTree = rootRoute
     "/": {
       "filePath": "index.tsx"
     },
-    "/sign-in": {
-      "filePath": "sign-in.tsx"
+    "/login": {
+      "filePath": "login.tsx"
     },
     "/sign-up": {
       "filePath": "sign-up.tsx"
