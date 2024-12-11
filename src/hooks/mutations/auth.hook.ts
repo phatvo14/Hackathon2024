@@ -4,13 +4,13 @@ import { auth } from "@/configs/firebase";
 import { authService, userService } from "@/services";
 import { useCurrentUserStore } from "@/stores";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "@tanstack/react-router";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export const useSignIn = () => {
-  const router = useRouter();
   const { signIn } = useCurrentUserStore();
+  const navigate = useNavigate();
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: async (form: TSignInForm) => {
@@ -23,7 +23,7 @@ export const useSignIn = () => {
       signIn(currentUser.data);
     },
     onSuccess: () => {
-      router.navigate({ to: "/" });
+      navigate("/");
     },
   });
 
@@ -34,7 +34,7 @@ export const useSignIn = () => {
 };
 
 export const useSignUp = () => {
-  const router = useRouter();
+  const navigate = useNavigate();
   const { signIn } = useCurrentUserStore();
 
   const { mutateAsync, isPending } = useMutation({
@@ -53,7 +53,7 @@ export const useSignUp = () => {
       signIn(currentUser.data);
     },
     onSuccess: () => {
-      router.navigate({ to: "/login" });
+      navigate("/sign-in");
     },
   });
 

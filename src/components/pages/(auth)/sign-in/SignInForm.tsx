@@ -79,7 +79,7 @@ export const SignInForm = () => {
             type="submit"
             className="text-xs w-full mx-auto font-semibold"
           >
-            Log in
+            Sign in
           </LoadingButton>
         </div>
       </form>

@@ -1,7 +1,7 @@
 import { HeaderLogo } from "@/components/layouts/Header/HeaderLogo";
 import { SignInForm } from "@/components/pages/(auth)/sign-in/SignInForm";
 import { Separator } from "@/components/ui/separator";
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 
 export const SignInPage = () => {
   return (

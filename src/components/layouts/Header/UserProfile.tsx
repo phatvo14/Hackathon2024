@@ -32,12 +32,15 @@ export const UserProfile = ({ user }: { user: User }) => {
         className="flex w-64 flex-col gap-1 p-2"
       >
         <div className="flex cursor-pointer items-center gap-2 rounded px-3 py-1.5 text-xs font-semibold hover:bg-gray-200">
-          {/* <UserRound className="h-4 w-4" /> */}
+          <SVGIcon
+            path={SVGIcon.paths.userCard}
+            className="stroke-2 -translate-y-[1px]"
+          />
           <span>{user.fullName}</span>
         </div>
 
         <div className="flex cursor-pointer items-center gap-2 rounded px-3 py-1.5 text-xs font-semibold hover:bg-gray-200">
-          {/* <KeyRound className="h-4 w-4" /> */}
+          <SVGIcon path={SVGIcon.paths.password} className="stroke-2" />
           <span>Change Password</span>
         </div>
 

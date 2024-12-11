@@ -1,6 +1,6 @@
 import { SignUpForm } from "@/components/pages/(auth)/sign-up/SignUpForm";
 import { Separator } from "@/components/ui/separator";
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 
 export const SignUpPage = () => {
   return (
