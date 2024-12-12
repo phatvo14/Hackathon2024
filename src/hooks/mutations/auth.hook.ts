@@ -21,9 +21,10 @@ export const useSignIn = () => {
 
       const { data: currentUser } = await userService.currentUser();
       signIn(currentUser.data);
+      return currentUser.data;
     },
-    onSuccess: () => {
-      navigate("/");
+    onSuccess: (data) => {
+      data.isFirstLogin ? navigate("/welcome") : navigate("/");
     },
   });
 
@@ -53,7 +54,7 @@ export const useSignUp = () => {
       signIn(currentUser.data);
     },
     onSuccess: () => {
-      navigate("/sign-in");
+      navigate("/welcome");
     },
   });
 

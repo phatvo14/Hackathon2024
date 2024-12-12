@@ -9,6 +9,9 @@ import {
 } from "@/components/ui/tooltip";
 import React from "react";
 import image from "@/assets/avt.jpg";
+import { useToggle } from "@/hooks/customs";
+import { cn } from "@/lib/utils";
+import { Maximize2Icon, Minimize2Icon } from "lucide-react";
 
 export const MentorsList = ({ data }: { data: any[] }) => {
   return (
@@ -21,12 +24,28 @@ export const MentorsList = ({ data }: { data: any[] }) => {
 };
 
 const MentorItem = ({ info }: { info: any }) => {
+  const { isToggle, toggle } = useToggle();
+
   return (
-    <div className="bg-white rounded-lg hover:shadow-lg p-6 pt-56 flex flex-col gap-2 overflow-hidden relative">
+    <div
+      className={cn(
+        "bg-white rounded-lg hover:shadow-lg p-6 pt-56 flex flex-col gap-2 overflow-hidden relative"
+      )}
+    >
       <img
         src={image}
-        className="absolute top-0 inset-x-0 h-52 w-full object-cover rounded-b-lg"
+        className={cn(
+          isToggle ? "inset-0" : "inset-x-0 h-52",
+          "absolute top-0 w-full object-cover rounded-b-lg transition-all"
+        )}
       />
+      <Button
+        variant="ghost"
+        className="w-fit p-1 aspect-square flex items-center flex-center absolute top-3 right-3"
+        onClick={toggle}
+      >
+        {isToggle ? <Minimize2Icon /> : <Maximize2Icon />}
+      </Button>
       <h3 className="font-semibold text-lg">{info.fullName}</h3>
       <Separator className="mb-1" />
       <div className="flex flex-wrap gap-2 items-center">

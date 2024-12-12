@@ -2,6 +2,7 @@ import { HeaderLogo } from "@/components/layouts/Header/HeaderLogo";
 import { UserProfile } from "@/components/layouts/Header/UserProfile";
 import { SVGIcon } from "@/components/ui";
 import { Button } from "@/components/ui/button";
+import { useGetPathName } from "@/hooks";
 import { cn } from "@/lib/utils";
 import { useCurrentUserStore } from "@/stores";
 import { Link } from "react-router-dom";
@@ -14,6 +15,8 @@ const headerMenuList = [
 
 export const MainHeader = () => {
   const { currentUser } = useCurrentUserStore();
+  const pathname = useGetPathName();
+  console.log(pathname);
 
   return (
     <header className="bg-zinc-900 min-h-12 z-[999999] fixed inset-x-0 top-0 overflow-hidden">
@@ -27,8 +30,8 @@ export const MainHeader = () => {
               <Link
                 to={item.href}
                 key={index}
-                // activeProps={{ className: "text-white after:w-1/2" }}
                 className={cn(
+                  pathname == item.href ? "text-white after:w-1/2" : "",
                   "font-medium text-gray-400 hover:text-white text-sm px-2 relative after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-[1px] after:w-0 hover:after:w-1/2 after:bg-white after:transition-all"
                 )}
               >

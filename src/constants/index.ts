@@ -1,1 +1,1 @@
-export const hideHeaderRoutes: string[] = ["/sign-in", "/sign-up"];
+export const hideHeaderRoutes: string[] = ["/welcome"];

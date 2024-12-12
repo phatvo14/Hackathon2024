@@ -1,6 +1,6 @@
-import { useRouter } from "@tanstack/react-router";
+import { useLocation } from "react-router-dom";
 
 export const useGetPathName = () => {
-  const router = useRouter();
-  return router.state.location.pathname;
+  const location = useLocation();
+  return location.pathname;
 };
