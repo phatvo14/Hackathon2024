@@ -9,8 +9,11 @@ export const MentorFilter = () => {
       <div>
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-medium">Let's find your mentor</h1>
-          <Button className="border border-zinc-900 hover:bg-[#ffe733]/90 flex gap-1">
-            <SVGIcon path={SVGIcon.paths.cards} className="stroke-2" />
+          <Button className="border border-zinc-900 flex gap-1">
+            <SVGIcon
+              path={SVGIcon.paths.cards}
+              className="stroke-2 fill-white"
+            />
             <span className="text-xs font-semibold">Match mentor card</span>
           </Button>
         </div>

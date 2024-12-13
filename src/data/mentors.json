@@ -1,6 +1,6 @@
 [
     {
-        "MentorID":"M01",
+        "id":"M01",
         "fullName":"Khoa Nguyễn",
         "skills":[
             "Python",
@@ -21,7 +21,7 @@
         "Email":"nguyễn.khoa@cyberlogitec.com"
     },
     {
-        "MentorID":"M02",
+        "id":"M02",
         "fullName":"Đạt Trần",
         "skills":[
             "Java",
@@ -39,7 +39,7 @@
         "Email":"trần.đạt@cyberlogitec.com"
     },
     {
-        "MentorID":"M03",
+        "id":"M03",
         "fullName":"Thi Huỳnh",
         "skills":[
             "Creative Thinking",
@@ -59,7 +59,7 @@
         "Email":"huỳnh.thi@cyberlogitec.com"
     },
     {
-        "MentorID":"M04",
+        "id":"M04",
         "fullName":"My Nguyễn",
         "skills":[
             "Project Management",
@@ -80,7 +80,7 @@
         "Email":"nguyễn.my@cyberlogitec.com"
     },
     {
-        "MentorID":"M05",
+        "id":"M05",
         "fullName":"Phú Nguyễn",
         "skills":[
             "UI\/UX Design",
@@ -97,7 +97,7 @@
         "Email":"nguyễn.phú@cyberlogitec.com"
     },
     {
-        "MentorID":"M06",
+        "id":"M06",
         "fullName":"Châu Trần",
         "skills":[
             "Creative Thinking",
@@ -116,7 +116,7 @@
         "Email":"trần.châu@cyberlogitec.com"
     },
     {
-        "MentorID":"M07",
+        "id":"M07",
         "fullName":"Phát Võ",
         "skills":[
             "Java",

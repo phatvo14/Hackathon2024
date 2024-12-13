@@ -1,3 +1,4 @@
+import image from "@/assets/avt.jpg";
 import { SVGIcon } from "@/components/ui";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -7,11 +8,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import React from "react";
-import image from "@/assets/avt.jpg";
-import { useToggle } from "@/hooks/customs";
 import { cn } from "@/lib/utils";
-import { Maximize2Icon, Minimize2Icon } from "lucide-react";
+import React from "react";
+import { Link } from "react-router-dom";
 
 export const MentorsList = ({ data }: { data: any[] }) => {
   return (
@@ -24,8 +23,6 @@ export const MentorsList = ({ data }: { data: any[] }) => {
 };
 
 const MentorItem = ({ info }: { info: any }) => {
-  const { isToggle, toggle } = useToggle();
-
   return (
     <div
       className={cn(
@@ -35,18 +32,13 @@ const MentorItem = ({ info }: { info: any }) => {
       <img
         src={image}
         className={cn(
-          isToggle ? "inset-0" : "inset-x-0 h-52",
+          "inset-x-0 h-52",
           "absolute top-0 w-full object-cover rounded-b-lg transition-all"
         )}
       />
-      <Button
-        variant="ghost"
-        className="w-fit p-1 aspect-square flex items-center flex-center absolute top-3 right-3"
-        onClick={toggle}
-      >
-        {isToggle ? <Minimize2Icon /> : <Maximize2Icon />}
-      </Button>
-      <h3 className="font-semibold text-lg">{info.fullName}</h3>
+      <Link className="hover:underline" to={`/mentors/${info.id}`}>
+        <h3 className="font-semibold text-lg">{info.fullName}</h3>
+      </Link>
       <Separator className="mb-1" />
       <div className="flex flex-wrap gap-2 items-center">
         {info.skills.slice(0, 2).map((item: string, index: number) => (
@@ -74,8 +66,11 @@ const MentorItem = ({ info }: { info: any }) => {
           </TooltipProvider>
         )}
       </div>
-      <Button className="border border-zinc-900 hover:bg-[#ffe733]/90 flex gap-2 w-32 mt-auto">
-        <SVGIcon path={SVGIcon.paths.paperPlaneTilt} className="stroke-2" />
+      <Button className="border border-zinc-900 flex gap-2 w-32 mt-auto">
+        <SVGIcon
+          path={SVGIcon.paths.paperPlaneTilt}
+          className="stroke-2 fill-white"
+        />
         <span className="text-xs font-semibold">Send request</span>
       </Button>
     </div>

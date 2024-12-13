@@ -44,3 +44,19 @@ export const welcomeStepOneFormSchema = z.object({
     required_error: "Employee Code is required.",
   }),
 });
+
+export const welcomeStepTwoFormSchema = z.object({
+  skills: z
+    .array(
+      z.object({
+        label: z.string(),
+        value: z.string(),
+      }),
+      {
+        required_error: "This field is required.",
+      }
+    )
+    .min(2, {
+      message: "You must input at least 2 skills.",
+    }),
+});

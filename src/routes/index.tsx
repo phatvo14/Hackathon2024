@@ -1,13 +1,14 @@
 import { AppLayout } from "@/components/layouts/AppLayout";
 import {
   MentorsPage,
+  NotFound,
   SignInPage,
   SignUpPage,
   WelcomePage,
 } from "@/components/pages";
 import { ChatPage } from "@/components/pages/(app)/chat";
-import { NotFound } from "@/components/pages/404";
-import { createBrowserRouter } from "react-router-dom";
+import { MentorDetailPage } from "@/components/pages/(app)/mentors/mentor-detail";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 
 export const router = createBrowserRouter([
   {
@@ -25,10 +26,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "mentors",
-        element: <MentorsPage />,
+        element: <Outlet />,
         children: [
           {
+            path: "",
+            element: <MentorsPage />,
+          },
+          {
             path: ":id",
+            element: <MentorDetailPage />,
           },
         ],
       },

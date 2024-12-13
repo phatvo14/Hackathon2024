@@ -1,8 +1,12 @@
 import bgImg from "@/assets/welcome-bg.jpg";
 import { UpdateUserForm } from "@/components/pages/(app)/welcome/UpdateUserForm";
 import { Button } from "@/components/ui/button";
+import { Option } from "@/components/ui/multi-selector";
 import { Separator } from "@/components/ui/separator";
-import { welcomeStepOneFormSchema } from "@/constants/zod-schemas";
+import {
+  welcomeStepOneFormSchema,
+  welcomeStepTwoFormSchema,
+} from "@/constants/zod-schemas";
 import { cn } from "@/lib/utils";
 import { useCurrentUserStore } from "@/stores";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,13 +20,23 @@ export type TStepOneForm = {
   employeeNumber?: string;
 };
 
+export type TStepTwoForm = {
+  skills?: Option[];
+};
+
 export const WelcomePage = () => {
   const { currentUser } = useCurrentUserStore();
 
   const [step, setStep] = useState<number>(1);
+  const [userInfo, setUserInfo] = useState<any>({});
 
   const stepOneForm = useForm<TStepOneForm>({
     resolver: zodResolver(welcomeStepOneFormSchema),
+    defaultValues: {},
+  });
+
+  const stepTwoForm = useForm<TStepTwoForm>({
+    resolver: zodResolver(welcomeStepTwoFormSchema),
     defaultValues: {},
   });
 
@@ -30,8 +44,10 @@ export const WelcomePage = () => {
     switch (step) {
       case 1:
         return stepOneForm;
+      case 2:
+        return stepTwoForm;
     }
-    return stepOneForm;
+    return stepOneForm as any;
   }, [step]);
 
   if (!currentUser) {
@@ -48,7 +64,7 @@ export const WelcomePage = () => {
             Join the Tinter Community — Where Mentorship Meets Opportunity!
           </h2>
           <Separator className="my-4 bg-zinc-500 w-1/2" />
-          <UpdateUserForm step={step} form={stepOneForm} />
+          <UpdateUserForm step={step} form={currentForm} />
           <div className="flex justify-between mt-auto items-center w-full">
             <div className="flex flex-col gap-0.5 items-center">
               <span className="font-medium text-xs">Step {step} of 3</span>
@@ -76,11 +92,30 @@ export const WelcomePage = () => {
               <Button
                 className="gap-0"
                 onClick={() => {
-                  if (step < 3) {
-                    currentForm.handleSubmit((values: TStepOneForm) => {
-                      console.log("Form is valid:", values);
-                      setStep((prev) => prev + 1);
-                    })();
+                  switch (step) {
+                    case 1:
+                      currentForm.handleSubmit((values: TStepOneForm) => {
+                        setUserInfo((prev: any) => {
+                          return { ...prev, ...values };
+                        });
+                        setStep((prev) => prev + 1);
+                      })();
+                      break;
+                    case 2:
+                      debugger;
+                      currentForm.handleSubmit((values: TStepTwoForm) => {
+                        setUserInfo((prev: any) => {
+                          return {
+                            ...prev,
+                            skills: (values.skills || []).map(
+                              (item) => item.value
+                            ),
+                          };
+                        });
+                        setStep((prev) => prev + 1);
+                      })();
+                      break;
+                    case 3:
                   }
                 }}
               >
