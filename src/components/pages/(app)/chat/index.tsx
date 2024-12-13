@@ -1,10 +1,9 @@
 import { UserCard } from "@/components/pages/(app)/chat/UserCard";
-import { Input } from "@/components/ui/input";
+import { UserFilter } from "@/components/pages/(app)/chat/UserFilter";
 import { useDebounce } from "@/components/ui/multi-selector";
 import data from "@/data/employees.json";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-// import { debounce } from "lodash";
 
 export type TEmployeeData = {
   employeeID: string;
@@ -43,13 +42,7 @@ export const ChatPage = () => {
     <div className="bg-[#e4dbd3] w-full h-[calc(100vh-3rem)] flex p-6 pb-4">
       <div className="h-full border-zinc-500 border-r-2 pl-2 min-w-80">
         <div className="flex flex-col gap-1 h-full pr-4 overflow-auto relative">
-          <div className="flex items-center gap-2 top-0 sticky bg-[#e4dbd3] z-[10] pb-2">
-            <Input
-              placeholder="Search user's name..."
-              className="h-9 border-2 border-zinc-500 focus-visible:ring-0"
-              onChange={(e) => setSearchText(e.target.value)}
-            />
-          </div>
+          <UserFilter setSearchText={setSearchText} />
           <>
             {users.length > 0 ? (
               users.map((item) => (

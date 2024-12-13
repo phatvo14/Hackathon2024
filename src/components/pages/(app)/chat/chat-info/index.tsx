@@ -1,9 +1,8 @@
 import image from "@/assets/avt.jpg";
-import { SVGIcon } from "@/components/ui";
+import { MessageInput } from "@/components/pages/(app)/chat/chat-info/MessageInput";
+import { MessageList } from "@/components/pages/(app)/chat/chat-info/MessageList";
 import {
   AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -13,32 +12,11 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import employees from "@/data/employees.json";
-import { useToggle } from "@/hooks/customs";
-import { cn } from "@/lib/utils";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SmileIcon } from "lucide-react";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { z } from "zod";
 
 export const ChatInfoPage = () => {
   const { id } = useParams();
@@ -133,117 +111,6 @@ export const ChatInfoPage = () => {
         <MessageInput
           sendMessage={(message) => setMessages((prev) => [...prev, message])}
         />
-      </div>
-    </div>
-  );
-};
-
-export const MessageList = ({ data }: { data: string[] }) => {
-  return (
-    <div className="h-[calc(100vh-12.5rem)]">
-      <div className="h-full flex flex-col gap-1 items-end overflow-auto">
-        {data.map((item, index) => (
-          <span
-            className="w-fit px-3 py-1 bg-my-blue text-sm text-white rounded-lg rounded-br-none"
-            key={index}
-          >
-            {item}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export const MessageInput = ({
-  sendMessage,
-}: {
-  sendMessage: (message: string) => void;
-}) => {
-  const schema = z.object({
-    message: z.string().min(1),
-  });
-
-  const form = useForm<{ message: string }>({
-    resolver: zodResolver(schema),
-    defaultValues: { message: "" },
-  });
-
-  const currentMessage = form.watch("message");
-
-  return (
-    <div className="relative">
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit((values) => {
-            form.resetField("message");
-            sendMessage(values.message);
-          })}
-        >
-          <FormField
-            control={form.control}
-            name="message"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input
-                    placeholder="Type message..."
-                    className="h-10 pr-20 text-xs placeholder:text-xs border-2 border-zinc-500 focus-visible:ring-0"
-                    {...field}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-        </form>
-      </Form>
-      <div className="absolute top-1/2 -translate-y-1/2 right-2 h-7 flex items-center">
-        <div className="h-1/2 w-[1.5px] bg-zinc-500 mr-2"></div>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <Button
-                type="button"
-                variant={"ghost"}
-                className="p-1.5 rounded-full"
-              >
-                <SmileIcon className="text-zinc-500" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent className="bg-zinc-800 text-white text-xs text-center">
-              <p>Emoji</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <Button
-                type="submit"
-                variant={"ghost"}
-                className="p-1.5 rounded-full"
-              >
-                <SVGIcon
-                  className={cn(
-                    (currentMessage || "").length > 0
-                      ? "fill-my-blue"
-                      : "fill-zinc-500",
-                    "stroke-2"
-                  )}
-                  path={
-                    (currentMessage || "").length > 0
-                      ? SVGIcon.paths.paperFill
-                      : SVGIcon.paths.paperPlaneTilt
-                  }
-                  width={16}
-                />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent className="bg-zinc-800 text-white text-xs text-center">
-              <p>Send message</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
       </div>
     </div>
   );

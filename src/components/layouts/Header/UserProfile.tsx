@@ -1,14 +1,14 @@
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import image from "@/assets/avt.jpg";
+import { SVGIcon } from "@/components/ui";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
-import { SVGIcon } from "@/components/ui";
-import Cookies from "js-cookie";
 import { useCurrentUserStore, User } from "@/stores";
+import Cookies from "js-cookie";
 
 export const UserProfile = ({ user }: { user: User }) => {
   const { signOut } = useCurrentUserStore();

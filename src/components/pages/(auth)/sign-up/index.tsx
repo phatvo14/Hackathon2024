@@ -22,8 +22,8 @@ export const SignUpPage = () => {
         <SignUpForm />
         <h2 className="text-center mt-4 text-sm">
           Already have an account?{" "}
-          <Link to="/login" className="underline font-semibold">
-            Log in
+          <Link to="/sign-in" className="underline font-semibold">
+            Sign in
           </Link>
         </h2>
       </div>
