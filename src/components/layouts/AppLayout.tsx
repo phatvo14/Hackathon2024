@@ -13,7 +13,7 @@ export const AppLayout = () => {
       <main
         className={cn(
           !hideHeaderRoutes.includes(pathName)
-            ? "mt-[calc(3rem+3px)] min-h-[calc(100vh-3rem)] h-[calc(100vh-3rem)]"
+            ? "mt-[3rem] min-h-[calc(100vh-3rem)] h-[calc(100vh-3rem)]"
             : "h-[100vh]"
         )}
       >

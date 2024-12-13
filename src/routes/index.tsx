@@ -7,6 +7,7 @@ import {
   WelcomePage,
 } from "@/components/pages";
 import { ChatPage } from "@/components/pages/(app)/chat";
+import { ChatInfoPage } from "@/components/pages/(app)/chat/chat-info";
 import { MentorDetailPage } from "@/components/pages/(app)/mentors/mentor-detail";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 
@@ -21,6 +22,7 @@ export const router = createBrowserRouter([
         children: [
           {
             path: ":id",
+            element: <ChatInfoPage />,
           },
         ],
       },

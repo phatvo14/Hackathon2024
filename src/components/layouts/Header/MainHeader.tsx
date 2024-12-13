@@ -16,7 +16,6 @@ const headerMenuList = [
 export const MainHeader = () => {
   const { currentUser } = useCurrentUserStore();
   const pathname = useGetPathName();
-  console.log(pathname);
 
   return (
     <header className="bg-zinc-900 min-h-12 z-[999999] fixed inset-x-0 top-0 overflow-hidden">
