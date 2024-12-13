@@ -4,14 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Option } from "@/components/ui/multi-selector";
 import { Separator } from "@/components/ui/separator";
 import {
+  welcomeStepFourFormSchema,
   welcomeStepOneFormSchema,
+  welcomeStepThreeFormSchema,
   welcomeStepTwoFormSchema,
 } from "@/constants/zod-schemas";
 import { cn } from "@/lib/utils";
 import { useCurrentUserStore } from "@/stores";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChevronRight } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Navigate } from "react-router-dom";
 
@@ -24,11 +26,24 @@ export type TStepTwoForm = {
   skills?: Option[];
 };
 
+export type TStepThreeForm = {
+  experience?: number;
+  learningGoal?: string;
+  interest?: string;
+};
+
+export type TStepFourForm = {
+  availability?: string;
+  department?: string;
+  phoneNumber?: string;
+};
+
 export const WelcomePage = () => {
   const { currentUser } = useCurrentUserStore();
 
   const [step, setStep] = useState<number>(1);
   const [userInfo, setUserInfo] = useState<any>({});
+  const [isFinish, setIsFinish ] = useState(false);
 
   const stepOneForm = useForm<TStepOneForm>({
     resolver: zodResolver(welcomeStepOneFormSchema),
@@ -40,12 +55,32 @@ export const WelcomePage = () => {
     defaultValues: {},
   });
 
+  const stepThreeForm = useForm<TStepThreeForm>({
+    resolver: zodResolver(welcomeStepThreeFormSchema),
+    defaultValues: {},
+  });
+
+  const stepFourForm = useForm<TStepFourForm>({
+    resolver: zodResolver(welcomeStepFourFormSchema),
+    defaultValues: {},
+  });
+
+  useEffect(() => {
+    if(isFinish) {
+      console.log('finish', userInfo);
+    }
+  }, [isFinish])
+
   const currentForm = useMemo(() => {
     switch (step) {
       case 1:
         return stepOneForm;
       case 2:
         return stepTwoForm;
+      case 3:
+        return stepThreeForm;
+      case 4:
+        return stepFourForm;
     }
     return stepOneForm as any;
   }, [step]);
@@ -67,9 +102,9 @@ export const WelcomePage = () => {
           <UpdateUserForm step={step} form={currentForm} />
           <div className="flex justify-between mt-auto items-center w-full">
             <div className="flex flex-col gap-0.5 items-center">
-              <span className="font-medium text-xs">Step {step} of 3</span>
+              <span className="font-medium text-xs">Step {step} of 4</span>
               <div className="flex gap-1 items-center">
-                {Array.from({ length: 3 }).map((_, index) => (
+                {Array.from({ length: 4 }).map((_, index) => (
                   <div
                     className={cn(
                       step >= index + 1 ? "bg-green-500" : "bg-transparent",
@@ -102,7 +137,6 @@ export const WelcomePage = () => {
                       })();
                       break;
                     case 2:
-                      debugger;
                       currentForm.handleSubmit((values: TStepTwoForm) => {
                         setUserInfo((prev: any) => {
                           return {
@@ -116,11 +150,36 @@ export const WelcomePage = () => {
                       })();
                       break;
                     case 3:
+                      currentForm.handleSubmit((values: TStepThreeForm) => {
+                        setUserInfo((prev: any) => {
+                          return {
+                            ...prev,
+                            experience: values.experience,
+                            learningGoal: values.learningGoal,
+                            interest: values.interest,
+                          };
+                        });
+                        setStep((prev) => prev + 1);
+                      })();
+                      break;
+                    case 4:
+                      currentForm.handleSubmit((values: TStepFourForm) => {
+                        setUserInfo((prev: any) => {
+                          return {
+                            ...prev,
+                            availability: values.availability,
+                            phoneNumber: values.phoneNumber,
+                            department: values.department,
+                          };
+                        });
+                        setIsFinish(true);
+                      })();
+                      break;
                   }
                 }}
               >
-                <span className="text-xs">Next</span>
-                <ChevronRight className="translate-x-1" />
+                <span className="text-xs">{step < 4 ? "Next" : "Finish"}</span>
+                {step < 4 ? <ChevronRight className="translate-x-1" /> : ""}
               </Button>
             </div>
           </div>
