@@ -1,4 +1,9 @@
-import { TStepOneForm, TStepTwoForm } from "@/components/pages/(app)/welcome";
+import {
+  TStepFourForm,
+  TStepOneForm,
+  TStepThreeForm,
+  TStepTwoForm,
+} from "@/components/pages/(app)/welcome";
 import {
   Form,
   FormControl,
@@ -27,6 +32,8 @@ export const UpdateUserForm = ({ step, form }: { step: number; form: any }) => {
       return <FormStepTwo form={form} />;
     case 3:
       return <FormStepThree form={form} />;
+    case 4:
+      return <FormStepFour form={form} />;
   }
 };
 
@@ -144,26 +151,53 @@ const FormStepTwo = ({
 const FormStepThree = ({
   form,
 }: {
-  form: UseFormReturn<TStepOneForm, any, undefined>;
+  form: UseFormReturn<TStepThreeForm, any, undefined>;
 }) => {
-  const { currentUser } = useCurrentUserStore();
-
+  const learningGoals: string[] = [
+    "Leadership",
+    "AI",
+    "Python",
+    "Automation Test",
+    "Soft Skills",
+    "Others",
+  ];
+  const interests: string[] = [
+    "Sports",
+    "Swimming",
+    "Reading",
+    "Traveling",
+    "Technology",
+    "Cooking",
+    "Singing",
+    "Others",
+  ];
   return (
     <div className="flex flex-col w-full mt-6">
       <Form {...form}>
         <form onSubmit={() => {}} className="space-y-4 w-full">
           <FormField
             control={form.control}
-            name="role"
+            name="experience"
             render={({ field }) => (
               <FormItem>
-                <h2 className="text-zinc-500 text-sm">
-                  Dear{" "}
-                  <span className="text-my-blue font-semibold">
-                    {currentUser?.fullName}
-                  </span>
-                  , which role are you?
-                </h2>
+                <FormLabel className="text-zinc-500 font-normal">
+                  Year of experiences
+                </FormLabel>
+                <FormControl>
+                  <Input placeholder="Ex: 3" {...field} />
+                </FormControl>
+                <FormMessage className="text-xs font-normal" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="learningGoal"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-zinc-500 font-normal">
+                  Learning Goal
+                </FormLabel>
                 <FormControl>
                   <Select
                     onValueChange={field.onChange}
@@ -171,12 +205,15 @@ const FormStepThree = ({
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select a role" />
+                        <SelectValue placeholder="Select learning goal" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="mentor">Mentor</SelectItem>
-                      <SelectItem value="mentee">Mentee</SelectItem>
+                      {learningGoals.map((goal) => (
+                        <SelectItem key={goal} value={goal}>
+                          {goal}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </FormControl>
@@ -186,14 +223,136 @@ const FormStepThree = ({
           />
           <FormField
             control={form.control}
-            name="employeeNumber"
+            name="interest"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-zinc-500 font-normal">
-                  Employee Code
+                  Interest
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="Ex: 123456" {...field} />
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select your interest" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {interests.map((interest) => (
+                        <SelectItem key={interest} value={interest}>
+                          {interest}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage className="text-xs font-normal" />
+              </FormItem>
+            )}
+          />
+        </form>
+      </Form>
+    </div>
+  );
+};
+
+const FormStepFour = ({
+  form,
+}: {
+  form: UseFormReturn<TStepFourForm, any, undefined>;
+}) => {
+  const availabilities: string[] = [
+    "Available",
+    "Flexible",
+    "Specific hours",
+  ];
+  const departments: string[] = [
+    "LSG",
+    "DSG",
+    "SSG",
+    "DAS",
+    "EDS",
+    "AIC",
+    "TS",
+  ];
+  return (
+    <div className="flex flex-col w-full mt-6">
+      <Form {...form}>
+        <form onSubmit={() => {}} className="space-y-4 w-full">
+        <FormField
+            control={form.control}
+            name="availability"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-zinc-500 font-normal">
+                  Availability
+                </FormLabel>
+                <FormControl>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select your availability" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {availabilities.map((availability) => (
+                        <SelectItem key={availability} value={availability}>
+                          {availability}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage className="text-xs font-normal" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="department"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-zinc-500 font-normal">
+                  Department
+                </FormLabel>
+                <FormControl>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select your Department" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {departments.map((department) => (
+                        <SelectItem key={department} value={department}>
+                          {department}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage className="text-xs font-normal" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="phoneNumber"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-zinc-500 font-normal">
+                  Phone number
+                </FormLabel>
+                <FormControl>
+                  <Input placeholder="Ex: 3" {...field} />
                 </FormControl>
                 <FormMessage className="text-xs font-normal" />
               </FormItem>
