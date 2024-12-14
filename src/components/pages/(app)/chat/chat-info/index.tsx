@@ -138,7 +138,7 @@ export const ChatInfoPage = () => {
           <Calendar />
         </div>
       ) : (
-        <div className="flex flex-col gap-2 flex-auto">
+        <div className="flex flex-col gap-2 h-[calc(100vh-9rem)]">
           <MessageList data={messages} />
           <MessageInput sendMessage={handleSendMessage} />
         </div>

@@ -54,16 +54,16 @@ const PageContent = () => {
           const receiveUserId = item.members.find(
             (item: string) => item != currentUser?._id
           );
-          const userInfo = users.find((user: any) => user._id == receiveUserId);
-          return { ...item, fullName: userInfo.fullName };
+          const userInfo = (users || []).find(
+            (user: any) => user._id == receiveUserId
+          );
+          return { ...item, fullName: userInfo?.fullName || "" };
         }),
       ];
       setChatRooms(() => {
         return debounceText
           ? adjChatRoomArr.filter((item) =>
-              (item.fullName as string)
-                .toLowerCase()
-                .includes(debounceText.toLowerCase())
+              item.fullName.toLowerCase().includes(debounceText.toLowerCase())
             )
           : adjChatRoomArr;
       });

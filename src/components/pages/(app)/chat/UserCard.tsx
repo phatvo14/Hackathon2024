@@ -13,7 +13,6 @@ export const UserCard = ({ data }: { data: any }) => {
   const senderId = data.members.find(
     (item: string) => item != currentUser?._id
   );
-  console.log(data);
 
   return (
     <Link to={`/chat/${senderId}`}>
