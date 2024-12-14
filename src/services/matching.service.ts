@@ -6,6 +6,7 @@ class MatchingService {
     return await api.post("matching", {
       ...userInfo,
       employeeID: userInfo.employeeNumber,
+      skills: userInfo.skills?.join(', ')
     });
   };
 }

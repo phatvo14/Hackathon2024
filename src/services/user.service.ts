@@ -17,7 +17,6 @@ class UserService {
   updateUser = async (userInfo: TUserInfo, userId: string) => {
     return await api.patch(`user/${userId}`, {
       ...userInfo,
-      skills: userInfo.skills?.join(', ')
     });
   };
 }
