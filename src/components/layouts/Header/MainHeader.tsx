@@ -60,7 +60,9 @@ export const MainHeader = () => {
                     key={index}
                     className={cn(
                       pathname == item.href ? "text-white after:w-1/2" : "",
-                      !isScrolled ? "text-white" : "text-gray-400",
+                      pathname == "/" && !isScrolled
+                        ? "text-white"
+                        : "text-gray-400",
                       "font-medium hover:text-white text-sm px-2 relative after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-[1px] after:w-0 hover:after:w-1/2 after:bg-white after:transition-all"
                     )}
                   >

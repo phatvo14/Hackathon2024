@@ -139,7 +139,11 @@ export const ChatInfoPage = () => {
         </div>
       ) : (
         <div className="flex flex-col gap-2 h-[calc(100vh-9rem)]">
-          <MessageList data={messages} />
+          <div className="h-[calc(100vh-12.5rem)]">
+            <div className="h-full flex flex-col gap-1.5 items-end overflow-auto">
+              <MessageList data={messages} />
+            </div>
+          </div>
           <MessageInput sendMessage={handleSendMessage} />
         </div>
       )}

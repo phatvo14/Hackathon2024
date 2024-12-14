@@ -1,6 +1,5 @@
 import image from "@/assets/avt.jpg";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useGetPathName } from "@/hooks";
 import { cn } from "@/lib/utils";
 import { useCurrentUserStore } from "@/stores";
@@ -72,12 +71,12 @@ export const UserCard = ({
   }
 };
 
-const UserSkeleton = () => (
-  <div className="flex gap-2 items-center mb-3">
-    <Skeleton className="rounded-full w-12 h-12 bg-zinc-500/20" />
-    <div className="flex flex-col gap-2">
-      <Skeleton className="rounded-full w-56 h-5 bg-zinc-500/20" />
-      <Skeleton className="rounded-full w-24 h-4 bg-zinc-500/20" />
-    </div>
-  </div>
-);
+// const UserSkeleton = () => (
+//   <div className="flex gap-2 items-center mb-3">
+//     <Skeleton className="rounded-full w-12 h-12 bg-zinc-500/20" />
+//     <div className="flex flex-col gap-2">
+//       <Skeleton className="rounded-full w-56 h-5 bg-zinc-500/20" />
+//       <Skeleton className="rounded-full w-24 h-4 bg-zinc-500/20" />
+//     </div>
+//   </div>
+// );

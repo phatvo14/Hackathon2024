@@ -1,28 +1,19 @@
 import { cn } from "@/lib/utils";
 import { useCurrentUserStore } from "@/stores";
-import { useRef } from "react";
 
 export const MessageList = ({ data }: { data: any[] }) => {
   const { currentUser } = useCurrentUserStore();
 
-  const botttomRef = useRef<HTMLDivElement | null>(null);
-
-  const scrollToBottom = () => {
-    botttomRef.current?.scrollIntoView({ behavior: "instant" });
-  };
-
   return (
-    <div className="h-[calc(100vh-12.5rem)]">
-      <div className="h-full flex flex-col gap-1.5 items-end overflow-auto">
-        {data.map((item, index) => {
-          return item.sender == currentUser?._id ? (
-            <MessageRightBubble message={item} key={index} />
-          ) : (
-            <MessageLeftBubble message={item} />
-          );
-        })}
-      </div>
-    </div>
+    <>
+      {data.map((item, index) => {
+        return item.sender == currentUser?._id ? (
+          <MessageRightBubble message={item} key={index} />
+        ) : (
+          <MessageLeftBubble message={item} />
+        );
+      })}
+    </>
   );
 };
 

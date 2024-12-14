@@ -1,4 +1,3 @@
-import image from "@/assets/avt.jpg";
 import { SVGIcon } from "@/components/ui";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -14,7 +13,7 @@ import { Link } from "react-router-dom";
 
 export const MentorsList = ({ data }: { data: any[] }) => {
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="grid grid-cols-3 gap-4 p-6">
       {data.map((item, index) => (
         <MentorItem key={index} info={item} />
       ))}
@@ -30,7 +29,10 @@ const MentorItem = ({ info }: { info: any }) => {
       )}
     >
       <img
-        src={info.avatar || "https://res.cloudinary.com/dblglqzca/image/upload/v1734173611/tintor-images/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69_xn0kw6.jpg"}
+        src={
+          info.avatar ||
+          "https://res.cloudinary.com/dblglqzca/image/upload/v1734173611/tintor-images/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69_xn0kw6.jpg"
+        }
         className={cn(
           "inset-x-0 h-52",
           "absolute top-0 w-full object-cover rounded-b-lg transition-all"
@@ -39,7 +41,6 @@ const MentorItem = ({ info }: { info: any }) => {
       <Link className="hover:underline" to={`/mentors/${info.mentorID}`}>
         <h3 className="font-semibold text-lg">{info.name}</h3>
       </Link>
-      <Separator className="mb-1" />
       <div className="flex flex-wrap gap-2 items-center">
         {info.skills.slice(0, 2).map((item: string, index: number) => (
           <SkillItem title={item} key={index} />
@@ -66,7 +67,8 @@ const MentorItem = ({ info }: { info: any }) => {
           </TooltipProvider>
         )}
       </div>
-      <Button className="border border-zinc-900 flex gap-2 w-32 mt-auto">
+      <Separator className="mt-auto" />
+      <Button className="border border-zinc-900 flex gap-2 w-32">
         <SVGIcon
           path={SVGIcon.paths.paperPlaneTilt}
           className="stroke-2 fill-white"
