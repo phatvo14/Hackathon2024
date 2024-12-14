@@ -7,7 +7,10 @@ class AuthService {
     return await api.post("auth/login", form);
   };
   signUp = async (form: TSignUpForm) => {
-    return await api.post("auth/register", form);
+    return await api.post("auth/register", {
+      ...form,
+      role: "unknown",
+    });
   };
 }
 
