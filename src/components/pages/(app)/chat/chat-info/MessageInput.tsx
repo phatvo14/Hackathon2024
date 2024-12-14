@@ -27,6 +27,7 @@ export const MessageInput = ({
 }: {
   sendMessage: (message: string) => void;
 }) => {
+  
   const schema = z.object({
     message: z.string().min(1),
   });

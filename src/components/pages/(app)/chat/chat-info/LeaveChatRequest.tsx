@@ -74,12 +74,12 @@ export const LeaveChatRequest = () => {
             <DialogTitle className="font-semibold">
               Thank you for spending time with mentor!!
             </DialogTitle>
+            <Separator className="bg-zinc-500" />
             <DialogDescription>
               How do you feel about the quality of this conversation, please
               leave the rating.
             </DialogDescription>
           </DialogHeader>
-          <Separator className="bg-zinc-500" />
           <div className="flex flex-col gap-2">
             <div className="flex justify-center items-center gap-1">
               {Array.from({ length: 5 }).map((_, index) => (

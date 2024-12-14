@@ -3,8 +3,11 @@ import { LeaveChatRequest } from "@/components/pages/(app)/chat/chat-info/LeaveC
 import { MessageInput } from "@/components/pages/(app)/chat/chat-info/MessageInput";
 import { MessageList } from "@/components/pages/(app)/chat/chat-info/MessageList";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import Calendar from "@/components/ui/calendar/calendar";
 import { Separator } from "@/components/ui/separator";
 import { db } from "@/configs/firebase";
+import { useGetPathName, useToggle } from "@/hooks/customs";
 import { useGetUserInfo } from "@/hooks/queries";
 import { useCurrentUserStore } from "@/stores";
 import {
@@ -25,6 +28,9 @@ import { useParams } from "react-router-dom";
 export const ChatInfoPage = () => {
   const { currentUser } = useCurrentUserStore();
   const { id } = useParams();
+  const { toggle, isToggle } = useToggle();
+  const pathname = useGetPathName();
+
   const { userInfo, isFetchingUserInfo } = useGetUserInfo(id || "");
 
   const [messages, setMessages] = useState<DocumentData[]>([]);
@@ -40,7 +46,9 @@ export const ChatInfoPage = () => {
         const messageRef = collection(chatroom.ref, "messages");
         const q2 = query(messageRef, orderBy("createdAt"));
         onSnapshot(q2, (snapshot: any) => {
-          setMessages(snapshot.docs.map((doc: DocumentData) => doc.data()));
+          setMessages(
+            snapshot.docs.map((doc: DocumentData) => doc.data()) || []
+          );
         });
       }
     });
@@ -86,9 +94,14 @@ export const ChatInfoPage = () => {
 
   useEffect(() => {
     if (currentUser && userInfo) {
+      setMessages([]);
       updateMessage();
     }
   }, [setMessages, currentUser, userInfo]);
+
+  useEffect(() => {
+    isToggle && toggle();
+  }, [pathname]);
 
   if (!userInfo && isFetchingUserInfo) {
     return <></>;
@@ -111,16 +124,25 @@ export const ChatInfoPage = () => {
               </div>
             </div>
           </div>
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-2 items-center">
+            <Button className="text-xs" onClick={toggle}>
+              Schedule
+            </Button>
             <LeaveChatRequest />
           </div>
         </div>
       </div>
       <Separator className="bg-zinc-500" />
-      <div className="flex flex-col gap-2 flex-auto">
-        <MessageList data={messages} />
-        <MessageInput sendMessage={handleSendMessage} />
-      </div>
+      {isToggle ? (
+        <div className="bg-white rounded-lg h-[calc(100vh-9rem)]">
+          <Calendar />
+        </div>
+      ) : (
+        <div className="flex flex-col gap-2 flex-auto">
+          <MessageList data={messages} />
+          <MessageInput sendMessage={handleSendMessage} />
+        </div>
+      )}
     </div>
   );
 };

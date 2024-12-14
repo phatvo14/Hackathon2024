@@ -34,6 +34,7 @@ const PageContent = () => {
   const [searchText, setSearchText] = useState<string>("");
   const debounceText = useDebounce(searchText, 500);
 
+  const { currentUser } = useCurrentUserStore();
   const { users, isFetchingUsers } = useGetUsers({
     isActive: true,
     searchText: debounceText,
@@ -53,9 +54,9 @@ const PageContent = () => {
           ) : (
             <>
               {(users || []).length > 0 ? (
-                users.map((item: any) => (
-                  <UserCard key={item._id} data={item} />
-                ))
+                users
+                  .filter((item: any) => item._id != currentUser?._id)
+                  .map((item: any) => <UserCard key={item._id} data={item} />)
               ) : (
                 <h4 className="w-full text-center text-sm font-medium">
                   No results.
