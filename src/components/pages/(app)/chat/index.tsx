@@ -57,13 +57,13 @@ const PageContent = () => {
           const userInfo = (users || []).find(
             (user: any) => user._id == receiveUserId
           );
-          return { ...item, fullName: userInfo?.fullName || "" };
+          return { ...item, fullName: userInfo?.name || "" };
         }),
       ];
       setChatRooms(() => {
         return debounceText
           ? adjChatRoomArr.filter((item) =>
-              item.fullName.toLowerCase().includes(debounceText.toLowerCase())
+              item.name.toLowerCase().includes(debounceText.toLowerCase())
             )
           : adjChatRoomArr;
       });

@@ -117,7 +117,7 @@ export const ChatInfoPage = () => {
             </Avatar>
             <div className="flex flex-col gap-2 justify-between h-full">
               <div className="flex flex-col">
-                <h3 className="text-lg font-semibold">{userInfo.fullName}</h3>
+                <h3 className="text-lg font-semibold">{userInfo.name}</h3>
                 <span className="text-xs text-zinc-500 line-clamp-1">
                   {userInfo.department}
                 </span>
