@@ -23,7 +23,6 @@ export const MentorsList = ({ data }: { data: any[] }) => {
 };
 
 const MentorItem = ({ info }: { info: any }) => {
-  console.log(info);
   return (
     <div
       className={cn(
@@ -31,7 +30,7 @@ const MentorItem = ({ info }: { info: any }) => {
       )}
     >
       <img
-        src={image}
+        src={info.avatar || "https://res.cloudinary.com/dblglqzca/image/upload/v1734173611/tintor-images/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69_xn0kw6.jpg"}
         className={cn(
           "inset-x-0 h-52",
           "absolute top-0 w-full object-cover rounded-b-lg transition-all"
