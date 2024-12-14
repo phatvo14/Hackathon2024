@@ -8,9 +8,9 @@ import { useCurrentUserStore } from "@/stores";
 import { Link } from "react-router-dom";
 
 const headerMenuList = [
-  { title: "Home", href: "/" },
-  { title: "Mentors", href: "/mentors" },
-  { title: "Chat", href: "/chat" },
+  { title: "Home", href: "/", isProtected: false },
+  { title: "Mentors", href: "/mentors", isProtected: true },
+  { title: "Chat", href: "/chat", isProtected: true },
 ];
 
 export const MainHeader = () => {
@@ -25,18 +25,22 @@ export const MainHeader = () => {
             <HeaderLogo className="fill-white" />
           </Link>
           <ul className="flex gap-2 items-center">
-            {headerMenuList.map((item, index) => (
-              <Link
-                to={item.href}
-                key={index}
-                className={cn(
-                  pathname == item.href ? "text-white after:w-1/2" : "",
-                  "font-medium text-gray-400 hover:text-white text-sm px-2 relative after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-[1px] after:w-0 hover:after:w-1/2 after:bg-white after:transition-all"
-                )}
-              >
-                <li className="text-center">{item.title}</li>
-              </Link>
-            ))}
+            {headerMenuList.map((item, index) => {
+              return (
+                (!item.isProtected || (item.isProtected && currentUser)) && (
+                  <Link
+                    to={item.href}
+                    key={index}
+                    className={cn(
+                      pathname == item.href ? "text-white after:w-1/2" : "",
+                      "font-medium text-gray-400 hover:text-white text-sm px-2 relative after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-[1px] after:w-0 hover:after:w-1/2 after:bg-white after:transition-all"
+                    )}
+                  >
+                    <li className="text-center">{item.title}</li>
+                  </Link>
+                )
+              );
+            })}
           </ul>
         </div>
         <div

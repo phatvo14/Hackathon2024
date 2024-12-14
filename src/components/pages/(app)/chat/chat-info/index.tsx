@@ -1,32 +1,96 @@
 import image from "@/assets/avt.jpg";
+import { LeaveChatRequest } from "@/components/pages/(app)/chat/chat-info/LeaveChatRequest";
 import { MessageInput } from "@/components/pages/(app)/chat/chat-info/MessageInput";
 import { MessageList } from "@/components/pages/(app)/chat/chat-info/MessageList";
-import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
-import employees from "@/data/employees.json";
-import { useState } from "react";
+import { db } from "@/configs/firebase";
+import { useGetUserInfo } from "@/hooks/queries";
+import { useCurrentUserStore } from "@/stores";
+import {
+  addDoc,
+  collection,
+  DocumentData,
+  getDocs,
+  onSnapshot,
+  orderBy,
+  query,
+  serverTimestamp,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 export const ChatInfoPage = () => {
+  const { currentUser } = useCurrentUserStore();
   const { id } = useParams();
-  const info = employees.find((item) => item.employeeID == id);
+  const { userInfo, isFetchingUserInfo } = useGetUserInfo(id || "");
 
-  const [messages, setMessages] = useState<string[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpenDialog, setIsOpenDialog] = useState(false);
+  const [messages, setMessages] = useState<DocumentData[]>([]);
 
-  if (!info) {
+  const updateMessage = () => {
+    const chatroomsRef = collection(db, "chatrooms");
+    const combinedUser = [currentUser?._id, id].sort().join(":");
+    const q = query(chatroomsRef, where("roomId", "==", combinedUser));
+
+    getDocs(q).then((snapshot) => {
+      const chatroom = snapshot.docs[0];
+      if (chatroom) {
+        const messageRef = collection(chatroom.ref, "messages");
+        const q2 = query(messageRef, orderBy("createdAt"));
+        onSnapshot(q2, (snapshot: any) => {
+          setMessages(snapshot.docs.map((doc: DocumentData) => doc.data()));
+        });
+      }
+    });
+  };
+
+  const handleSendMessage = async (message: string) => {
+    const chatroomsRef = collection(db, "chatrooms");
+    const combinedUser = [currentUser?._id, id].sort().join(":");
+
+    const q = query(chatroomsRef, where("roomId", "==", combinedUser));
+    const snapshot = await getDocs(q);
+    const chatroom = snapshot.docs[0];
+
+    const newMessage = {
+      sender: currentUser?._id,
+      receiver: id,
+      content: message.trim(),
+      createdAt: serverTimestamp(),
+    };
+
+    try {
+      if (chatroom) {
+        await addDoc(collection(chatroom.ref, "messages"), newMessage);
+        await updateDoc(chatroom.ref, {
+          lastMessage: newMessage,
+          updatedAt: serverTimestamp(),
+        });
+      } else {
+        const newChatroomRef = await addDoc(chatroomsRef, {
+          roomId: combinedUser,
+          members: [currentUser?._id, id],
+          senderUserId: currentUser?._id,
+          receiveUserId: id,
+          lastMessage: newMessage,
+          updatedAt: serverTimestamp(),
+        });
+        await addDoc(collection(newChatroomRef, "messages"), newMessage);
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (currentUser && userInfo) {
+      updateMessage();
+    }
+  }, [setMessages, currentUser, userInfo]);
+
+  if (!userInfo && isFetchingUserInfo) {
     return <></>;
   }
 
@@ -40,77 +104,22 @@ export const ChatInfoPage = () => {
             </Avatar>
             <div className="flex flex-col gap-2 justify-between h-full">
               <div className="flex flex-col">
-                <h3 className="text-lg font-semibold">{info.name}</h3>
+                <h3 className="text-lg font-semibold">{userInfo.fullName}</h3>
                 <span className="text-xs text-zinc-500 line-clamp-1">
-                  {info.department}
+                  {userInfo.department}
                 </span>
               </div>
             </div>
           </div>
           <div className="flex gap-4 items-center">
-            <AlertDialog open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
-              <AlertDialogTrigger asChild>
-                <Button variant={"destructive"} className="text-xs">
-                  Leave conversation
-                </Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent onClick={(e) => e.stopPropagation()}>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete
-                    your account and remove your data from our servers.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <Button variant="outline" onClick={() => setIsOpen(false)}>
-                    Cancel
-                  </Button>
-                  <Button
-                    variant="destructive"
-                    onClick={() => {
-                      setIsOpen(false);
-                      setIsOpenDialog(true);
-                    }}
-                  >
-                    Continue
-                  </Button>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-            <Dialog
-              open={isOpenDialog}
-              onOpenChange={(open) => {
-                if (!open) return;
-                setIsOpenDialog(open);
-              }}
-            >
-              <DialogContent
-                className="w-1/2"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <DialogFooter className="items-center gap-2">
-                  <span
-                    onClick={() => setIsOpenDialog(false)}
-                    className="text-sm text-zinc-500 underline underline-offset-2 p-1 cursor-pointer"
-                  >
-                    Skip
-                  </span>
-                  <Button type="submit" onClick={() => setIsOpenDialog(false)}>
-                    Send
-                  </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+            <LeaveChatRequest />
           </div>
         </div>
       </div>
       <Separator className="bg-zinc-500" />
       <div className="flex flex-col gap-2 flex-auto">
         <MessageList data={messages} />
-        <MessageInput
-          sendMessage={(message) => setMessages((prev) => [...prev, message])}
-        />
+        <MessageInput sendMessage={handleSendMessage} />
       </div>
     </div>
   );

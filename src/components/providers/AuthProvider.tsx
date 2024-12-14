@@ -1,6 +1,8 @@
 import { Spinner } from "@/components/ui/spinner";
+import { db } from "@/configs/firebase";
 import { useGetCurrentUser } from "@/hooks/queries";
 import { useCurrentUserStore } from "@/stores";
+import { doc, getDoc } from "firebase/firestore";
 import Cookies from "js-cookie";
 import React, { useEffect } from "react";
 
@@ -9,9 +11,26 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { signIn } = useCurrentUserStore();
 
   useEffect(() => {
-    if (currentUserData) {
-      signIn(currentUserData);
-    }
+    const fetchData = async () => {
+      const firebaseUid = Cookies.get("fireBaseUid");
+
+      if (currentUserData && firebaseUid) {
+        signIn(currentUserData);
+
+        try {
+          const userDocRef = doc(db, "users", firebaseUid);
+          const userSnapshot = await getDoc(userDocRef);
+
+          if (userSnapshot.exists()) {
+            console.log(userSnapshot.data());
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      }
+    };
+
+    fetchData();
   }, [isFetchingCurrentUserData]);
 
   return Cookies.get("accessToken") && isFetchingCurrentUserData ? (
