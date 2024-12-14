@@ -11,20 +11,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const fetchData = async () => {
       const firebaseUid = Cookies.get("fireBaseUid");
-
       if (currentUserData && firebaseUid) {
         signIn(currentUserData);
-
-        // try {
-        //   const userDocRef = doc(db, "users", firebaseUid);
-        //   const userSnapshot = await getDoc(userDocRef);
-
-        //   if (userSnapshot.exists()) {
-        //     console.log(userSnapshot.data());
-        //   }
-        // } catch (error) {
-        //   console.error("Error fetching user data:", error);
-        // }
       }
     };
 

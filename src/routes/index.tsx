@@ -1,5 +1,6 @@
 import { AppLayout } from "@/components/layouts/AppLayout";
 import {
+  HomePage,
   MentorsPage,
   NotFound,
   SignInPage,
@@ -16,6 +17,10 @@ export const router = createBrowserRouter([
     path: "/",
     element: <AppLayout />,
     children: [
+      {
+        path: "",
+        element: <HomePage />,
+      },
       {
         path: "chat",
         element: <ChatPage />,
