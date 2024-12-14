@@ -15,28 +15,28 @@ import { Separator } from "@/components/ui/separator";
 
 export const MentorDetailPage = () => {
   const { id } = useParams();
-  const mentor = mentors.find((item) => item.id == id);
+  const mentor = mentors.find((item) => item.mentorID == id);
 
   if (!mentor) {
     return <></>;
   }
 
   return (
-    <div className="p-6 h-full flex flex-col gap-4">
+    <div className="py-6 px-24 h-full flex flex-col gap-4">
       <div className="flex flex-col gap-2">
         <div className="flex gap-10 items-start">
           <img src={img} className="w-40 aspect-square rounded-lg" />
           <div className="flex flex-col gap-2 justify-between h-full">
             <div className="flex flex-col gap-2">
               <h3 className="text-2xl uppercase font-bold text-my-blue">
-                {mentor?.fullName}
+                {mentor?.name}
               </h3>
               <div className="flex items-center gap-2 mt-2">
                 <ClockIcon className="w-5 h-5" />
                 <span className="text-sm font-medium">
                   Availability:{" "}
                   <span className="text-zinc-500 ml-6">
-                    {mentor?.Availability}
+                    {mentor?.availability}
                   </span>
                 </span>
               </div>
@@ -86,7 +86,23 @@ export const MentorDetailPage = () => {
         </div>
       </div>
       <Separator className="bg-zinc-500" />
-      <div className="flex gap-2"></div>
+      <div className="flex gap-2">
+        <div className="about">
+          <h3 className="text-2xl font-semibold uppercase text-my-blue">
+            About me
+          </h3>
+          <p>
+            Sound recording and music technology, audio and synthesizers. Djing
+            and record collecting (I'm mostly interested in techno and electro
+            music). I'm also a big premier league fan, my team is West Ham
+            United. I have a daughter aged 6 and 4 cats. I'm definitely a cat
+            person! Recently I moved back to the UK for a while. I plan to
+            return to Japan in February or March next year. Thanks to everyone
+            who reached out to me. Your kindness is appreciated!
+          </p>
+        </div>
+      </div>
+      <img src="https://fastdo.vn/wp-content/uploads/2021/12/mentoring-la-gi-1-min.jpg"></img>
     </div>
   );
 };

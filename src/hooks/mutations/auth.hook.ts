@@ -43,8 +43,6 @@ export const useSignUp = () => {
   const { mutateAsync, isPending } = useMutation({
     mutationFn: async (form: TSignUpForm) => {
       const { data } = await authService.signUp(form);
-      debugger;
-
       const { user: firebaseUser } = await createUserWithEmailAndPassword(
         auth,
         form.email || "",

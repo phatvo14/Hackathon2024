@@ -23,6 +23,7 @@ export const MentorsList = ({ data }: { data: any[] }) => {
 };
 
 const MentorItem = ({ info }: { info: any }) => {
+  console.log(info);
   return (
     <div
       className={cn(
@@ -36,8 +37,8 @@ const MentorItem = ({ info }: { info: any }) => {
           "absolute top-0 w-full object-cover rounded-b-lg transition-all"
         )}
       />
-      <Link className="hover:underline" to={`/mentors/${info.id}`}>
-        <h3 className="font-semibold text-lg">{info.fullName}</h3>
+      <Link className="hover:underline" to={`/mentors/${info.mentorID}`}>
+        <h3 className="font-semibold text-lg">{info.name}</h3>
       </Link>
       <Separator className="mb-1" />
       <div className="flex flex-wrap gap-2 items-center">

@@ -1,3 +1,4 @@
+import { TUserInfo } from "@/components/pages";
 import api from "@/configs/axios";
 import { TGetUserListDTO } from "@/hooks/queries";
 
@@ -12,6 +13,12 @@ class UserService {
   };
   getUserInfo = async (id: string) => {
     return await api.get(`user/${id}`);
+  };
+  updateUser = async (userInfo: TUserInfo, userId: string) => {
+    return await api.patch(`user/${userId}`, {
+      ...userInfo,
+      skills: userInfo.skills?.join(', ')
+    });
   };
 }
 

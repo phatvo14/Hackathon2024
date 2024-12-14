@@ -10,12 +10,13 @@ import {
   welcomeStepTwoFormSchema,
 } from "@/constants/zod-schemas";
 import { cn } from "@/lib/utils";
+import { matchingService, userService } from "@/services";
 import { useCurrentUserStore } from "@/stores";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChevronRight } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export type TStepOneForm = {
   role?: string;
@@ -38,12 +39,18 @@ export type TStepFourForm = {
   phoneNumber?: string;
 };
 
+export type TUserInfo = TStepOneForm &
+  TStepTwoForm &
+  TStepThreeForm &
+  TStepFourForm;
+
 export const WelcomePage = () => {
   const { currentUser } = useCurrentUserStore();
 
   const [step, setStep] = useState<number>(1);
-  const [userInfo, setUserInfo] = useState<any>({});
-  const [isFinish, setIsFinish ] = useState(false);
+  const [userInfo, setUserInfo] = useState<TUserInfo>();
+  const [isFinish, setIsFinish] = useState(false);
+  const navigate = useNavigate();
 
   const stepOneForm = useForm<TStepOneForm>({
     resolver: zodResolver(welcomeStepOneFormSchema),
@@ -66,10 +73,19 @@ export const WelcomePage = () => {
   });
 
   useEffect(() => {
-    if(isFinish) {
-      console.log('finish', userInfo);
+    const updateUserData = async () => {
+      const res = await userService.updateUser(
+        { ...userInfo },
+        currentUser?._id || ""
+      );
+      if (res.data) {
+        navigate(`/mentors?isMatching=true`);
+      }
+    };
+    if (isFinish) {
+      updateUserData();
     }
-  }, [isFinish])
+  }, [currentUser?._id, isFinish, navigate, userInfo]);
 
   const currentForm = useMemo(() => {
     switch (step) {
@@ -179,7 +195,14 @@ export const WelcomePage = () => {
                 }}
               >
                 <span className="text-xs">{step < 4 ? "Next" : "Finish"}</span>
-                {step < 4 ? <ChevronRight className="translate-x-1" /> : ""}
+                {step < 4 ? (
+                  <ChevronRight
+                    className="translate-x-1"
+                    onClick={() => setIsFinish(false)}
+                  />
+                ) : (
+                  ""
+                )}
               </Button>
             </div>
           </div>
