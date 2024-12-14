@@ -1,8 +1,6 @@
 import { Spinner } from "@/components/ui/spinner";
-import { db } from "@/configs/firebase";
 import { useGetCurrentUser } from "@/hooks/queries";
 import { useCurrentUserStore } from "@/stores";
-import { doc, getDoc } from "firebase/firestore";
 import Cookies from "js-cookie";
 import React, { useEffect } from "react";
 
@@ -17,16 +15,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       if (currentUserData && firebaseUid) {
         signIn(currentUserData);
 
-        try {
-          const userDocRef = doc(db, "users", firebaseUid);
-          const userSnapshot = await getDoc(userDocRef);
+        // try {
+        //   const userDocRef = doc(db, "users", firebaseUid);
+        //   const userSnapshot = await getDoc(userDocRef);
 
-          if (userSnapshot.exists()) {
-            console.log(userSnapshot.data());
-          }
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-        }
+        //   if (userSnapshot.exists()) {
+        //     console.log(userSnapshot.data());
+        //   }
+        // } catch (error) {
+        //   console.error("Error fetching user data:", error);
+        // }
       }
     };
 

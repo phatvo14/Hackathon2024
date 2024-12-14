@@ -1,18 +1,26 @@
 import image from "@/assets/avt.jpg";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useGetPathName } from "@/hooks";
 import { cn } from "@/lib/utils";
+import { useCurrentUserStore } from "@/stores";
 import { Link } from "react-router-dom";
 
 export const UserCard = ({ data }: { data: any }) => {
   const pathName = useGetPathName();
+  const { currentUser } = useCurrentUserStore();
+
+  const senderId = data.members.find(
+    (item: string) => item != currentUser?._id
+  );
+  console.log(data);
 
   return (
-    <Link to={`/chat/${data._id}`}>
+    <Link to={`/chat/${senderId}`}>
       <div
         className={cn(
           "flex gap-2 items-center px-4 py-2 rounded-lg w-full",
-          pathName == `/chat/${data._id}`
+          pathName == `/chat/${senderId}`
             ? "bg-my-blue/20 hover:bg-my-blue/20"
             : "hover:bg-zinc-600/10"
         )}
@@ -21,12 +29,25 @@ export const UserCard = ({ data }: { data: any }) => {
           <AvatarImage src={image} alt="User Avatar" />
         </Avatar>
         <div className="flex flex-col">
-          <h3 className="text-sm font-bold">{data.fullName}</h3>
+          <h3 className="text-sm text-my-blue font-bold">{data.fullName}</h3>
           <span className="text-xs text-zinc-500 line-clamp-1">
-            {data.department}
+            <span className="text-black font-semibold">
+              {data.lastMessage.sender == currentUser?._id && "You: "}
+            </span>
+            {data.lastMessage.content}
           </span>
         </div>
       </div>
     </Link>
   );
 };
+
+const UserSkeleton = () => (
+  <div className="flex gap-2 items-center mb-3">
+    <Skeleton className="rounded-full w-12 h-12 bg-zinc-500/20" />
+    <div className="flex flex-col gap-2">
+      <Skeleton className="rounded-full w-56 h-5 bg-zinc-500/20" />
+      <Skeleton className="rounded-full w-24 h-4 bg-zinc-500/20" />
+    </div>
+  </div>
+);
