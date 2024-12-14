@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { useGetPathName } from "@/hooks";
 import { cn } from "@/lib/utils";
 import { useCurrentUserStore } from "@/stores";
+import { useAnimation, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const headerMenuList = [
@@ -16,9 +18,34 @@ const headerMenuList = [
 export const MainHeader = () => {
   const { currentUser } = useCurrentUserStore();
   const pathname = useGetPathName();
+  const controls = useAnimation();
+
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const hasScrolled = window.scrollY > 0;
+      setIsScrolled(hasScrolled);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [controls]);
 
   return (
-    <header className="bg-zinc-900 min-h-12 z-[999999] fixed inset-x-0 top-0 overflow-hidden">
+    <motion.header
+      className={cn(
+        pathname == "/"
+          ? isScrolled
+            ? "bg-zinc-900"
+            : "bg-transparent"
+          : "bg-zinc-900",
+        "min-h-12 z-[999999] fixed inset-x-0 top-0 overflow-hidden"
+      )}
+    >
       <nav className="flex w-full items-center justify-between px-6">
         <div className="flex items-center gap-6">
           <Link to="/">
@@ -33,7 +60,8 @@ export const MainHeader = () => {
                     key={index}
                     className={cn(
                       pathname == item.href ? "text-white after:w-1/2" : "",
-                      "font-medium text-gray-400 hover:text-white text-sm px-2 relative after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-[1px] after:w-0 hover:after:w-1/2 after:bg-white after:transition-all"
+                      !isScrolled ? "text-white" : "text-gray-400",
+                      "font-medium hover:text-white text-sm px-2 relative after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-[1px] after:w-0 hover:after:w-1/2 after:bg-white after:transition-all"
                     )}
                   >
                     <li className="text-center">{item.title}</li>
@@ -71,6 +99,6 @@ export const MainHeader = () => {
           )}
         </div>
       </nav>
-    </header>
+    </motion.header>
   );
 };

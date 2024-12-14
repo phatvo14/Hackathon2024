@@ -38,6 +38,7 @@ const PageContent = () => {
   const { currentUser } = useCurrentUserStore();
   const { users } = useGetUsers({
     isActive: true,
+    searchText: debounceText,
   });
   const [chatRooms, setChatRooms] = useState<any[]>([]);
 
@@ -57,13 +58,14 @@ const PageContent = () => {
           const userInfo = (users || []).find(
             (user: any) => user._id == receiveUserId
           );
-          return { ...item, fullName: userInfo?.name || "" };
+          return { ...item, fullName: userInfo?.fullName || "" };
         }),
       ];
+
       setChatRooms(() => {
         return debounceText
           ? adjChatRoomArr.filter((item) =>
-              item.name.toLowerCase().includes(debounceText.toLowerCase())
+              item.fullName.toLowerCase().includes(debounceText.toLowerCase())
             )
           : adjChatRoomArr;
       });
@@ -75,15 +77,25 @@ const PageContent = () => {
       <div className="h-full border-zinc-500 border-r-2 pl-2 min-w-80">
         <div className="flex flex-col gap-1 h-full pr-4 overflow-auto relative">
           <UserFilter setSearchText={setSearchText} text={searchText} />
-          {(chatRooms || []).length > 0 ? (
-            chatRooms
-              .filter((item: any) => item._id != currentUser?._id)
-              .map((item: any, index) => <UserCard key={index} data={item} />)
-          ) : (
-            <h4 className="w-full text-center text-sm font-medium">
-              No results.
-            </h4>
-          )}
+          <>
+            {(chatRooms || []).length > 0 ? (
+              chatRooms
+                .filter((item: any) => item._id != currentUser?._id)
+                .map((item: any, index) => <UserCard key={index} data={item} />)
+            ) : (users || []).filter(
+                (item: any) => item._id != currentUser?._id
+              ).length > 0 ? (
+              (users || [])
+                .filter((item: any) => item._id != currentUser?._id)
+                .map((item: any, index: number) => (
+                  <UserCard key={index} data={item} isChatRoom={true} />
+                ))
+            ) : (
+              <h4 className="w-full text-center text-sm font-medium">
+                No results.
+              </h4>
+            )}
+          </>
         </div>
       </div>
       <Outlet />

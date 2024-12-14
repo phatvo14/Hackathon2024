@@ -1,3 +1,4 @@
+import { ScrollCards } from "@/components/pages/home/scroll-cards";
 import { SVGIcon } from "@/components/ui";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -12,9 +13,9 @@ export const HomePage = () => {
 
   return (
     <div className="flex flex-col w-full">
-      <div className="relative h-[450px]">
+      <div className="relative h-[500px]">
         <video
-          className="object-cover w-full h-[450px] mt-0.5"
+          className="object-cover w-full h-[500px]"
           muted
           loop
           autoPlay={true}
@@ -45,26 +46,52 @@ export const HomePage = () => {
       <div className="flex justify-between bg-my-blue w-full px-64 items-center">
         <div className="flex gap-2 items-center p-4">
           <SVGIcon
-            className="fill-white"
+            className="fill-my-sececondary"
             path={SVGIcon.paths.connection}
             width={36}
           />
-          <span className="text-white font-semibold">Open Connection</span>
+          <span className="text-my-sececondary font-semibold">
+            Open Connection
+          </span>
         </div>
 
         <div className="flex gap-2 items-center p-4">
           <SVGIcon
-            className="fill-white"
+            className="fill-my-sececondary"
             path={SVGIcon.paths.fire}
             width={36}
           />
-          <span className="text-white font-semibold">Enthusiastic Mentor</span>
+          <span className="text-my-sececondary font-semibold">
+            Enthusiastic Mentor
+          </span>
         </div>
         <div className="flex gap-2 items-center p-4">
-          <SVGIcon className="fill-white" path={SVGIcon.paths.AI} width={36} />
-          <span className="text-white font-semibold">Smart Matching</span>
+          <SVGIcon
+            className="fill-my-sececondary"
+            path={SVGIcon.paths.AI}
+            width={36}
+          />
+          <span className="text-my-sececondary font-semibold">
+            Smart Matching
+          </span>
         </div>
       </div>
+      <div className="flex flex-col items-center gap-6 mt-28 mb-10">
+        <h2 className="scroll-m-20 w-[40rem] text-my-sececondary text-center border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+          Start with your mentors
+        </h2>
+        <p className="leading-7 w-[35rem] text-center">
+          We recommend lessons, topics, and activities to help you reach your
+          goals. You choose the things that get you talking, making moves toward
+          where you want to go.
+        </p>
+        <Link to="/sign-in">
+          <Button className="gap-0 w-36">
+            <span className="text-base">Start now</span>
+          </Button>
+        </Link>
+      </div>
+      <ScrollCards />
     </div>
   );
 };

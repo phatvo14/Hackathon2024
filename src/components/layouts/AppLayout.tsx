@@ -5,16 +5,17 @@ import { cn } from "@/lib/utils";
 import { Outlet } from "react-router-dom";
 
 export const AppLayout = () => {
-  const pathName = useGetPathName();
+  const pathname = useGetPathName();
 
   return (
     <>
-      {!hideHeaderRoutes.includes(pathName) && <MainHeader />}
+      {!hideHeaderRoutes.includes(pathname) && <MainHeader />}
       <main
         className={cn(
-          !hideHeaderRoutes.includes(pathName)
+          !hideHeaderRoutes.includes(pathname)
             ? "mt-[3rem] min-h-[calc(100vh-3rem)] h-[calc(100vh-3rem)]"
-            : "h-[100vh]"
+            : "h-[100vh]",
+          pathname == "/" ? "mt-0" : ""
         )}
       >
         <Outlet />
