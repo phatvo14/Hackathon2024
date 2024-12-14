@@ -34,7 +34,7 @@ export const MentorFilter = ({ isMatching, currentUser }: MentorFilterProps) => 
         </span>
       </div>
       <div className="flex flex-wrap gap-2 items-center">
-        {currentUser.skills.split(', ').map((item: string, index: number) => (
+        {currentUser.skills.map((item: string, index: number) => (
           <SkillItem key={index} title={item} />
         ))}
       </div>

@@ -107,12 +107,19 @@ const FormStepTwo = ({
   form: UseFormReturn<TStepTwoForm, any, undefined>;
 }) => {
   const options: Option[] = [
-    { label: "ReactJS", value: "ReactJS" },
-    { label: "AI", value: "AI" },
-    { label: "Python", value: "Python" },
-    { label: "Automation Test", value: "Automation Test" },
-    { label: "Soft Skills", value: "Soft Skills" },
+    { "label": "Python", "value": "Python" },
+    { "label": "Leadership", "value": "Leadership" },
+    { "label": "Time Management", "value": "Time Management" },
+    { "label": "Data Analysis", "value": "Data Analysis" },
+    { "label": "Java", "value": "Java" },
+    { "label": "Teamwork", "value": "Teamwork" },
+    { "label": "Project Management", "value": "Project Management" },
+    { "label": "UI/UX Design", "value": "UI/UX Design" },
+    { "label": "Public Speaking", "value": "Public Speaking" },
+    { "label": "Creative Thinking", "value": "Creative Thinking" },
+    { "label": "Marketing", "value": "Marketing" }
   ];
+
   return (
     <div className="flex flex-col w-full mt-6">
       <Form {...form}>
