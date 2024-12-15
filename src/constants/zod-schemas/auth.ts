@@ -56,8 +56,8 @@ export const welcomeStepTwoFormSchema = z.object({
         required_error: "This field is required.",
       }
     )
-    .min(2, {
-      message: "You must input at least 2 skills.",
+    .min(1, {
+      message: "You must input at least 1 skills.",
     }),
 });
 

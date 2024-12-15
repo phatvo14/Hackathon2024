@@ -11,17 +11,17 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const MentorsList = ({ data }: { data: any[] }) => {
+export const MentorsList = ({ data, isMatching }: { data: any[], isMatching: string }) => {
   return (
     <div className="grid grid-cols-3 gap-4 p-6">
       {data.map((item, index) => (
-        <MentorItem key={index} info={item} />
+        <MentorItem key={index} info={item} isMatching={isMatching}/>
       ))}
     </div>
   );
 };
 
-const MentorItem = ({ info }: { info: any }) => {
+const MentorItem = ({ info, isMatching }: { info: any, isMatching: string }) => {
   return (
     <div
       className={cn(
@@ -38,9 +38,12 @@ const MentorItem = ({ info }: { info: any }) => {
           "absolute top-0 w-full object-cover rounded-b-lg transition-all"
         )}
       />
-      <Link className="hover:underline" to={`/mentors/${info.mentorID}`}>
-        <h3 className="font-semibold text-lg">{info.name}</h3>
-      </Link>
+      <div className="flex space-x-2 items-center">
+        <Link className="hover:underline" to={`/mentors/${info.mentorID}`}>
+          <h3 className="font-semibold text-lg">{info.name}</h3>
+        </Link>
+        {isMatching && <div className="bg-green-400 px-4 py-0.5 rounded-lg text-sm text-white">{Math.floor(100 * info.matchingPercent)}%</div>}
+      </div>
       <div className="flex flex-wrap gap-2 items-center">
         {info.skills.slice(0, 2).map((item: string, index: number) => (
           <SkillItem title={item} key={index} />

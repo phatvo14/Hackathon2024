@@ -1,6 +1,7 @@
 import { ScrollCards } from "@/components/pages/home/scroll-cards";
 import { SVGIcon } from "@/components/ui";
 import { Button } from "@/components/ui/button";
+import { useCurrentUserStore } from "@/stores";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -10,6 +11,8 @@ export const HomePage = () => {
     initial: { opacity: 0 },
     animate: { opacity: 1, transition: { delay: 2, duration: 1 } },
   };
+
+  const currentUser = useCurrentUserStore();
 
   return (
     <div className="flex flex-col w-full">
@@ -34,7 +37,7 @@ export const HomePage = () => {
             initial="initial"
             animate="animate"
           >
-            <Link to="/sign-in">
+            <Link to={currentUser ? '/mentors' : '/sign-in'}>
               <Button className="gap-0 w-48">
                 <span className="text-base">Explore now</span>
                 <ChevronRight className="translate-x-2" />
