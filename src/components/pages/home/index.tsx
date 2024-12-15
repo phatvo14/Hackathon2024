@@ -1,9 +1,10 @@
 import { ScrollCards } from "@/components/pages/home/scroll-cards";
 import { SVGIcon } from "@/components/ui";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useCurrentUserStore } from "@/stores";
 import { motion } from "framer-motion";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Handshake } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const HomePage = () => {
@@ -18,7 +19,7 @@ export const HomePage = () => {
     <div className="flex flex-col w-full">
       <div className="relative h-[500px]">
         <video
-          className="object-cover w-full h-[500px]"
+          className="w-full h-[500px] object-cover"
           muted
           loop
           autoPlay={true}
@@ -37,7 +38,7 @@ export const HomePage = () => {
             initial="initial"
             animate="animate"
           >
-            <Link to={currentUser ? '/mentors' : '/sign-in'}>
+            <Link to={currentUser ? "/mentors" : "/sign-in"}>
               <Button className="gap-0 w-48">
                 <span className="text-base">Explore now</span>
                 <ChevronRight className="translate-x-2" />
@@ -46,40 +47,62 @@ export const HomePage = () => {
           </motion.div>
         </div>
       </div>
-      <div className="flex justify-between bg-my-blue w-full px-64 items-center">
+      <div className="flex justify-between bg-my-blue w-full px-96 items-center">
         <div className="flex gap-2 items-center p-4">
           <SVGIcon
             className="fill-my-sececondary"
             path={SVGIcon.paths.connection}
             width={36}
           />
-          <span className="text-my-sececondary font-semibold">
-            Open Connection
-          </span>
+          <span className="text-my-sececondary font-semibold">Connect</span>
         </div>
 
+        <div className="flex gap-2 items-center p-4">
+          <Handshake className="stroke-my-sececondary w-8 h-8" />
+          <span className="text-my-sececondary font-semibold">Collaborate</span>
+        </div>
         <div className="flex gap-2 items-center p-4">
           <SVGIcon
             className="fill-my-sececondary"
             path={SVGIcon.paths.fire}
             width={36}
           />
-          <span className="text-my-sececondary font-semibold">
-            Enthusiastic Mentor
-          </span>
-        </div>
-        <div className="flex gap-2 items-center p-4">
-          <SVGIcon
-            className="fill-my-sececondary"
-            path={SVGIcon.paths.AI}
-            width={36}
-          />
-          <span className="text-my-sececondary font-semibold">
-            Smart Matching
-          </span>
+          <span className="text-my-sececondary font-semibold">Conquer</span>
         </div>
       </div>
-      <div className="flex flex-col items-center gap-6 mt-28 mb-10">
+      <div className="flex flex-col items-center gap-6 mt-20 mb-10">
+        <div className="z-0 flex items-center -space-x-2 *:ring *:ring-background">
+          <Avatar className="z-0 size-8">
+            <AvatarImage
+              className="object-cover"
+              src="https://res.cloudinary.com/dblglqzca/image/upload/v1734171607/tintor-images/mentor132_xgoui3.jpg"
+            />
+          </Avatar>
+          <Avatar className="z-10 size-10">
+            <AvatarImage
+              className="object-cover"
+              src="https://res.cloudinary.com/dblglqzca/image/upload/v1734230703/tintor-images/mentor_HQ_ixifmg.jpg"
+            />
+          </Avatar>
+          <Avatar className="z-20 size-14">
+            <AvatarImage
+              className="object-cover"
+              src="https://res.cloudinary.com/dblglqzca/image/upload/v1734230620/tintor-images/mentor103_uk1jas.jpg"
+            />
+          </Avatar>
+          <Avatar className="z-10 size-10">
+            <AvatarImage
+              className="object-cover"
+              src="https://res.cloudinary.com/dblglqzca/image/upload/v1734230495/tintor-images/no11_fvhv3y.jpg"
+            />
+          </Avatar>
+          <Avatar className="z-0 size-8">
+            <AvatarImage
+              className="object-cover"
+              src="https://res.cloudinary.com/dblglqzca/image/upload/v1734230495/tintor-images/no12_nzow3i.jpg"
+            />
+          </Avatar>
+        </div>
         <h2 className="scroll-m-20 w-[40rem] text-my-sececondary text-center border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
           Start with your mentors
         </h2>

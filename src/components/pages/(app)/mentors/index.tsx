@@ -30,7 +30,6 @@ export const MentorsPage = () => {
       const user = await userService.getUserInfo(currentUser?._id || "");
       if (!user) return;
       try {
-        console.log('User data: ', user.data.data)
         setIsLoading(true);
         setShowLightEffect(true);
         setTimeout(async () => {
@@ -124,7 +123,7 @@ export const MentorsPage = () => {
           </div>
         )}
         <MentorsList
-          data={isMatching ? (isLoading ? [] : mentorsMatching) : mentors}
+          data={isMatching ? (isLoading ? [] : mentorsMatching) : data}
           isMatching={isMatching || ""}
         />
       </div>

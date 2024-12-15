@@ -46,10 +46,10 @@ export const MainHeader = () => {
         "min-h-12 z-[999999] fixed inset-x-0 top-0 overflow-hidden"
       )}
     >
-      <nav className="flex w-full items-center justify-between px-6">
-        <div className="flex items-center gap-6">
+      <nav className="flex w-full items-center justify-between px-6 h-12">
+        <div className="flex items-center gap-6 h-full">
           <Link to="/">
-            <HeaderLogo className="fill-white" />
+            <HeaderLogo className="h-7" />
           </Link>
           <ul className="flex gap-2 items-center">
             {headerMenuList.map((item, index) => {

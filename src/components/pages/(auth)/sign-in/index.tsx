@@ -13,7 +13,7 @@ export const SignInPage = () => {
   return (
     <div className="bg-[#e4dbd3] w-full h-full p-6 flex items-center">
       <div className="flex flex-col items-center w-[30rem] mx-auto py-6 px-8 bg-white shadow-lg rounded-lg">
-        <HeaderLogo />
+        <HeaderLogo className="h-8 mb-2" />
         <h2 className="text-sm text-zinc-500">
           Hello, welcome back to CyberLogitec connection!
         </h2>
