@@ -19,7 +19,7 @@
         "email": "nguyen.khoa@cyberlogitec.com",
         "interest": "Traveling",
         "phoneNumber": "0311489463",
-        "avatar": "https://res.cloudinary.com/dblglqzca/image/upload/v1734171607/tintor-images/mentor130_adgyxt.jpg"
+        "avatar": "https://res.cloudinary.com/dblglqzca/image/upload/v1734230620/tintor-images/mentor103_uk1jas.jpg"
     },
     {
         "mentorID": "M02",
@@ -42,7 +42,7 @@
         "email": "tran.dat@cyberlogitec.com",
         "interest": "Cooking",
         "phoneNumber": "0386421797",
-        "avatar": "https://res.cloudinary.com/dblglqzca/image/upload/v1734171606/tintor-images/mentor129_wcdczg.jpg"
+        "avatar": "https://res.cloudinary.com/dblglqzca/image/upload/v1734230703/tintor-images/mentor_HQ_ixifmg.jpg"
     },
     {
         "mentorID": "M03",
@@ -66,7 +66,7 @@
         "email": "huynh.thi@cyberlogitec.com",
         "interest": "Sports",
         "phoneNumber": "0306626504",
-        "avatar": "https://res.cloudinary.com/dblglqzca/image/upload/v1734171612/tintor-images/mentor144_vwx8na.jpg"
+        "avatar": "https://res.cloudinary.com/dblglqzca/image/upload/v1734230495/tintor-images/no12_nzow3i.jpg"
     },
     {
         "mentorID": "M04",
@@ -90,7 +90,7 @@
         "email": "nguyen.my@cyberlogitec.com",
         "interest": "Cooking",
         "phoneNumber": "0512710461",
-        "avatar": "https://res.cloudinary.com/dblglqzca/image/upload/v1734171613/tintor-images/mentor145_p0kfhh.jpg"
+        "avatar": "https://res.cloudinary.com/dblglqzca/image/upload/v1734230495/tintor-images/images_d3lobs.jpg"
     },
     {
         "mentorID": "M05",
@@ -134,7 +134,7 @@
         "email": "tran.chau@cyberlogitec.com",
         "interest": "Sports",
         "phoneNumber": "0945575148",
-        "avatar": "https://res.cloudinary.com/dblglqzca/image/upload/v1734171584/tintor-images/no28_vw7sy8.jpg"
+        "avatar": "https://res.cloudinary.com/dblglqzca/image/upload/v1734230495/tintor-images/no11_fvhv3y.jpg"
     },
     {
         "mentorID": "M07",
@@ -2476,7 +2476,8 @@
         "availability": "Flexible",
         "email": "trang.vu@cyberlogitec.com",
         "interest": "Cooking",
-        "phoneNumber": "0975259917"
+        "phoneNumber": "0975259917",
+        "avatar": "https://res.cloudinary.com/dblglqzca/image/upload/v1734230495/tintor-images/mentor10_gepquu.jpg"
     },
     {
         "mentorID": "M222",
@@ -4486,7 +4487,7 @@
         "email": "trang.vu@cyberlogitec.com",
         "interest": "Sports",
         "phoneNumber": "0557391731",
-        "avatar": "https://cdn-media.sforum.vn/storage/app/media/uploaded-files/1715608269618.jpeg"
+        "avatar": "https://res.cloudinary.com/dblglqzca/image/upload/v1734230495/tintor-images/mentor10_gepquu.jpg"
     },
     {
         "mentorID": "M408",

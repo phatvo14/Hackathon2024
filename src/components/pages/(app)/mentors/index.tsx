@@ -54,7 +54,7 @@ export const MentorsPage = () => {
           }
           setIsLoading(false);
           setShowLightEffect(false);
-        }, 2000);
+        }, 1500);
       } catch (error) {
         console.error(error);
         setIsLoading(false);
@@ -114,7 +114,7 @@ export const MentorsPage = () => {
                 />
                 <audio controls autoPlay className="audio-player hidden">
                   <source
-                    src="https://res.cloudinary.com/dblglqzca/video/upload/v1734229386/tintor-images/doorbell-shortened-100308_dd3d0r.mp3"
+                    src="https://res.cloudinary.com/dblglqzca/video/upload/v1734231891/Am_thanh_Tintor_k8pk77.m4a"
                     type="audio/mpeg"
                   />
                   Your browser does not support the audio element.

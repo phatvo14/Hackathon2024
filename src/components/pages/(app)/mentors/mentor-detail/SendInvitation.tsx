@@ -34,7 +34,6 @@ export const SendInvitation = ({ isOpen, onCloseModal }: { isOpen: boolean, onCl
         <DialogFooter className="items-center gap-2 mt-2">
           <span
             onClick={() => {
-              toast.success("Thank for your feedback.");
               onCloseModal();
             }}
             className="text-sm text-zinc-500 underline underline-offset-2 p-1 cursor-pointer"

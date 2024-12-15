@@ -8,8 +8,9 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { SendInvitation } from "./mentor-detail/SendInvitation";
 
 export const MentorsList = ({ data, isMatching }: { data: any[], isMatching: string }) => {
   return (
@@ -22,6 +23,7 @@ export const MentorsList = ({ data, isMatching }: { data: any[], isMatching: str
 };
 
 const MentorItem = ({ info, isMatching }: { info: any, isMatching: string }) => {
+  const [isOpenModal, setIsOpenModal] = useState(false);
   return (
     <div
       className={cn(
@@ -71,13 +73,14 @@ const MentorItem = ({ info, isMatching }: { info: any, isMatching: string }) => 
         )}
       </div>
       <Separator className="mt-auto" />
-      <Button className="border border-zinc-900 flex gap-2 w-32">
+      <Button className="border border-zinc-900 flex gap-2 w-32" onClick={() => setIsOpenModal(true)}>
         <SVGIcon
           path={SVGIcon.paths.paperPlaneTilt}
           className="stroke-2 fill-white"
         />
         <span className="text-xs font-semibold">Send request</span>
       </Button>
+      <SendInvitation isOpen={isOpenModal} onCloseModal={() => setIsOpenModal(false)}/>
     </div>
   );
 };
